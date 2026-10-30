@@ -1,5 +1,8 @@
 name: Tests
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -14,3 +17,13 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m unittest discover -s tests -v
+
+      - name: Run sample scenario
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          mkdir demo-source
+          printf 'Synthetic backup demonstration\n' > demo-source/hello.txt
+          python -m backup_verifier create demo-source demo-backup
+          python -m backup_verifier verify demo-backup
+          python -m backup_verifier restore demo-backup demo-restored
+          cmp demo-source/hello.txt demo-restored/hello.txt
