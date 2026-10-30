@@ -12,7 +12,7 @@ Corruption, missing files, symlinks and restoration accuracy.
 
 ## Current implementation status
 
-Planned build. This repository does not yet contain a working implementation; no tests have been run.
+Working implementation published; 13 local tests passed. Remaining limitations are documented in README.md.
 
 ## Completion criteria
 
